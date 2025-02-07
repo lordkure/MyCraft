@@ -1,10 +1,13 @@
 package com.mycraft.texture;
 
+import com.mycraft.config.MainConfig;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.Objects;
 
 import static org.lwjgl.opengl.GL30.*;
 
@@ -18,7 +21,15 @@ public class Texture {
             IntBuffer channels = stack.mallocInt(1);
 
             // Carrega a imagem usando STBImage
-            ByteBuffer image = STBImage.stbi_load(path, width, height, channels, 4); // Força RGBA (4 canais)
+            var file = new File("build/resources/main" + path);
+            var imagePath = file.getAbsolutePath();
+
+            System.out.println(imagePath);
+
+            if (!file.exists())
+                throw  new RuntimeException("erro ao carregar o arquivo");
+
+            ByteBuffer image = STBImage.stbi_load(imagePath, width, height, channels, 4); // Força RGBA (4 canais)
             if (image == null) {
                 throw new RuntimeException("Erro ao carregar textura: " + STBImage.stbi_failure_reason());
             }

@@ -99,8 +99,8 @@ public class MyCraft {
         createMatrixForProjectionAndVision(config);
 
         // Caminhos para os arquivos GLSL
-        String vertexShaderCode = ShaderUtils.loadShader("src/main/resources/shaders/vertex.glsl");
-        String fragmentShaderCode = ShaderUtils.loadShader("src/main/resources/shaders/fragment.glsl");
+        String vertexShaderCode = ShaderUtils.loadShader("shaders/vertex.glsl");
+        String fragmentShaderCode = ShaderUtils.loadShader("shaders/fragment.glsl");
 
         // Cria o programa de shaders
         ShaderProgram shader = new ShaderProgram(vertexShaderCode, fragmentShaderCode);
@@ -110,7 +110,7 @@ public class MyCraft {
         projLocation = shader.getUniformLocation("projection");
         viewLocation = shader.getUniformLocation("view");
 
-        var texture = new Texture("src/main/resources/textures/world/ground.jpg");
+        var texture = new Texture("/textures/world/ground.jpg");
         texture.bind();
 
         chunkRenderer = new ChunkRenderer();
