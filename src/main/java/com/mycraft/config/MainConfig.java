@@ -1,6 +1,5 @@
 package com.mycraft.config;
 
-import com.mycraft.domain.MyCraftConfig;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;

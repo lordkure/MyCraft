@@ -1,4 +1,4 @@
-package com.mycraft.domain;
+package com.mycraft.render;
 
 public class Chunk {
     public static final int SIZE = 16; // Dimensão do chunk (16x16x16)

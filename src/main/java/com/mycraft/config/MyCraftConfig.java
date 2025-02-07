@@ -1,4 +1,4 @@
-package com.mycraft.domain;
+package com.mycraft.config;
 
 import lombok.ToString;
 

@@ -1,4 +1,4 @@
-package com.mycraft.domain;
+package com.mycraft.render;
 
 import static org.lwjgl.opengl.GL30.*;
 

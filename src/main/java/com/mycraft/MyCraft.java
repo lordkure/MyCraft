@@ -1,9 +1,9 @@
 package com.mycraft;
 
 import com.mycraft.config.MainConfig;
-import com.mycraft.domain.ChunkRenderer;
-import com.mycraft.domain.MyCraftConfig;
-import com.mycraft.domain.Texture;
+import com.mycraft.render.ChunkRenderer;
+import com.mycraft.config.MyCraftConfig;
+import com.mycraft.texture.Texture;
 import com.mycraft.shader.ShaderProgram;
 import com.mycraft.utils.ShaderUtils;
 import org.joml.Matrix4f;
@@ -12,7 +12,6 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
