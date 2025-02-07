@@ -12,6 +12,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -29,6 +31,8 @@ public class MyCraft {
     private long window;
     private FloatBuffer projectionBuffer;
     private FloatBuffer viewBuffer;
+    private int projLocation;
+    private int viewLocation;
 
     private ChunkRenderer chunkRenderer;
 
@@ -93,12 +97,7 @@ public class MyCraft {
         glCullFace(GL_BACK);      // Remove faces traseiras
         glFrontFace(GL_CCW);      // Define que a face frontal será no sentido anti-horário
 
-//        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
         createMatrixForProjectionAndVision(config);
-//        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        glTranslatef(0.0f, -1.0f, -5.0f); // Move a câmera para ver o bloco
 
         // Caminhos para os arquivos GLSL
         String vertexShaderCode = ShaderUtils.loadShader("src/main/resources/shaders/vertex.glsl");
@@ -109,6 +108,8 @@ public class MyCraft {
         shader.use();
         shader.setUniformMatrix4f("projection", projectionBuffer);
         shader.setUniformMatrix4f("view", viewBuffer);
+        projLocation = shader.getUniformLocation("projection");
+        viewLocation = shader.getUniformLocation("view");
 
         var texture = new Texture("src/main/resources/textures/world/ground.jpg");
         texture.bind();
@@ -166,6 +167,17 @@ public class MyCraft {
 
         viewBuffer = BufferUtils.createFloatBuffer(16);
         viewMatrix.get(viewBuffer);
+
+        // Envio das matrizes para os shaders
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer projBuffer = stack.mallocFloat(16);
+            projectionMatrix.get(projBuffer);
+            glUniformMatrix4fv(projLocation, false, projBuffer);
+
+            FloatBuffer viewBuffer = stack.mallocFloat(16);
+            viewMatrix.get(viewBuffer);
+            glUniformMatrix4fv(viewLocation, false, viewBuffer);
+        }
     }
 
     public static void main(String[] args) {

@@ -54,4 +54,12 @@ public class ShaderProgram {
             GL20.glUniformMatrix4fv(location, false, matrix);
         }
     }
+
+    public int getUniformLocation(String name) {
+        int location = glGetUniformLocation(programId, name);
+        if (location == -1) {
+            throw new RuntimeException("Uniforme '" + name + "' não encontrado no shader!");
+        }
+        return location;
+    }
 }
