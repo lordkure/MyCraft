@@ -60,8 +60,8 @@ public class ChunkRenderer {
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, VERTICES, GL_STATIC_DRAW);
 
-        glBindBuffer(GL_ARRAY_BUFFER, ebo);
-        glBufferData(GL_ARRAY_BUFFER, VERTICES, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, INDICES, GL_STATIC_DRAW);
 
         // Configura a posição dos vértices (location = 0)
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 5 * Float.BYTES, 0);
